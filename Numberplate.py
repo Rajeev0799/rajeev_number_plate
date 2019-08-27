@@ -68,7 +68,7 @@ for region in regionprops(label_im):
         #########Extract coordinates of the rectangle regions###########
           rectangle_objects.append(thim[min_row:max_row,min_col:max_col])
           rectangle_objects_coords.append((min_row, min_col,max_row, max_col))
-          rectBorder = patches.Rectangle((min_col, min_row), max_col - min_col, max_row - min_row, edgecolor="red",linewidth=2, fill=False)
+          rectBorder = patches.Rectangle((min_col, min_row), max_col - min_col, max_row - min_row, edgecolor="blue",linewidth=3, fill=False)
           ###########draw line
           ax1.add_patch(rectBorder)
             
