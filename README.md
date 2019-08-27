@@ -21,3 +21,15 @@ Installing pytesseract in google colab:
 ###To upload files in google colab
 from google.colab import files
 uploaded = files.upload()
+
+
+References:
+1.	Patel, Smt. Chandaben Mohanbhai, Dipti Shah , Automatic Number Plate Recognition System (ANPR): A Survey Chirag, International Journal of Computer Applications (0975 – 8887) Volume 69– No.9, May 2013
+2.	K.M. Sajjad, Automatic License Plate Recognition using Python and OpenCV
+3.	Hanit Karwal#1, Akshay Girdhar, Vehicle Number Plate Detection System for Indian Vehicles, 2015 IEEE, DOI 10.1109/CICT.2015.13
+4.	https://github.com/femioladeji/License-Plate-Recognition-Nigerian-vehicles
+5.	https://medium.com/datadriveninvestor/license-plate-detector-code-build-and-deploy-790579a18402
+6.	https://github.com/apoorva-dave/LicensePlateDetector?source=post_page-----790579a18402----------------------
+7.	https://towardsdatascience.com/automatic-license-plate-detection-recognition-using-deep-learning-624def07eaaf
+8.	https://github.com/anuj-badhwar/Indian-Number-Plate-Recognition-System/blob/master/main.py
+
