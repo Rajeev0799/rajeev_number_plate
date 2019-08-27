@@ -1,7 +1,9 @@
+
+###upload file in google colab
 from google.colab import files
 uploaded = files.upload()
 
-########import necessary packages
+########import necessary packages and files########################
 import cv2
 import  imutils
 from google.colab.patches import cv2_imshow
@@ -9,10 +11,11 @@ import numpy as np
 
 
 ##########PreProcessing########
-image = cv2.imread("car2.jpg")
-cv2_imshow(image)
-grayim = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+image = cv2.imread("car2.jpg")##read imahe
+cv2_imshow(image)##print image
+grayim = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)##convert color to gray
 print(grayim.shape)
+###########Resize the original if it is 500W###################
 ht,wdh = grayim.shape
 ratio = float(wdh) / ht
 if (wdh > 500):
@@ -22,18 +25,20 @@ grayim= imutils.resize(grayim, width=wdh,height=ht)
 #cv2_imshow(img)
 #grayim = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 cv2_imshow(grayim)
-r,thim=cv2.threshold(grayim,128,255,cv2.THRESH_OTSU)
+r,thim=cv2.threshold(grayim,128,255,cv2.THRESH_OTSU)#####Apply otsu method to find binary of original image
 cv2_imshow(thim)
 
 ##########Number Plate detection##########
 ###########
+#########import necessary ############
 from skimage import measure
 from skimage.measure import regionprops
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
-label_im = measure.label(thim)
+label_im = measure.label(thim)##Label the image refgions using measure
 cv2_imshow(label_im)
+##find the dimensions according to assumptions
 Numberplate_dims = (0.08*label_im.shape[0], 0.2*label_im.shape[0], 0.15*label_im.shape[1], 0.4*label_im.shape[1])
 min_height, max_height, min_width, max_width = Numberplate_dims
 rectangle_objects_coords = []
@@ -48,7 +53,7 @@ ax1.imshow(grayim, cmap="gray")
 #For each labelled connected region
 for region in regionprops(label_im):
     print('hai')
-    if region.area < 10:
+    if region.area < 50: #avoid region areais less than 50
       continue
       # Find the coordinates of bounding box using bbox
     min_row, min_col, max_row, max_col = region.bbox
@@ -57,9 +62,10 @@ for region in regionprops(label_im):
     region_height = max_row - min_row
     region_width = max_col - min_col
     print(region_height, region_width)
-    ###############      
+    ###############  find rectangle regions############    
     if region_height >= min_height and region_width >= min_width and region_width > region_height:
           print("hello")
+        #########Extract coordinates of the rectangle regions###########
           rectangle_objects.append(thim[min_row:max_row,min_col:max_col])
           rectangle_objects_coords.append((min_row, min_col,max_row, max_col))
           rectBorder = patches.Rectangle((min_col, min_row), max_col - min_col, max_row - min_row, edgecolor="red",linewidth=2, fill=False)
@@ -67,8 +73,8 @@ for region in regionprops(label_im):
           ax1.add_patch(rectBorder)
             
 print(min_height, max_height, min_width, max_width)
-plt.show()
-
+plt.show()###show the image with rectangle regions
+######Conclude the rectangle region with maximum white pixels as the number plate region
 cc=0
 av=[]
 for ob in rectangle_objects:
